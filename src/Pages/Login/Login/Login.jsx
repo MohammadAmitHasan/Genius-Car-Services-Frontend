@@ -4,7 +4,7 @@ import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../config.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
@@ -26,11 +26,23 @@ const Login = () => {
         const email = refEmail.current.value;
         const password = refPassword.current.value;
         signInWithEmailAndPassword(email, password);
+
+        fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        })
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem('accessToken', data.accessToken)
+            })
     }
 
     if (user) {
         navigate(from, { replace: true });
-        console.log(user);
+        // console.log(user);
     }
 
     let errorMessage = '';
@@ -82,7 +94,7 @@ const Login = () => {
                 <p className='mt-3'>Don't have an account? <Link className='text-primary text-decoration-none' to={'/register'}>Sign Up</Link> </p>
             </div>
             <SocialLogin></SocialLogin>
-            <ToastContainer />
+
         </div>
     );
 };

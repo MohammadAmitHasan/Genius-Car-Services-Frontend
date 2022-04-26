@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const AddService = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -29,7 +29,7 @@ const AddService = () => {
                 <input placeholder='Photo url ' className='mb-2' {...register("img")} />
                 <input className='mt-2 btn btn-primary' type="submit" value={'Add Service'} />
             </form>
-            <ToastContainer />
+
         </div>
     );
 };

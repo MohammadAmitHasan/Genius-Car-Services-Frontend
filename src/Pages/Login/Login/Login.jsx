@@ -27,7 +27,7 @@ const Login = () => {
         const password = refPassword.current.value;
         signInWithEmailAndPassword(email, password);
 
-        fetch('http://localhost:5000/login', {
+        fetch('https://mysterious-brook-87254.herokuapp.com/login', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'

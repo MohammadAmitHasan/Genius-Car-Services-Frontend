@@ -13,7 +13,7 @@ const Orders = () => {
 
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user.email}`, {
+        fetch(`https://mysterious-brook-87254.herokuapp.com/orders?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
@@ -33,7 +33,7 @@ const Orders = () => {
 
         // const getOrders = async () => {
         //     const email = user.email;
-        //     const url = `http://localhost:5000/order?email=${email}`;
+        //     const url = `https://mysterious-brook-87254.herokuapp.com/order?email=${email}`;
         //     try {
         //         const { data } = await axiosPrivate.get(url);
         //         setOrders(data);

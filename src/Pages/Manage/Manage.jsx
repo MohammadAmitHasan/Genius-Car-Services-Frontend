@@ -6,7 +6,7 @@ const Manage = () => {
     const handleDelete = id => {
         const confirmation = confirm('Are You sure, You want to delete.?');
         if (confirmation) {
-            fetch(`http://localhost:5000/manage/${id}`, {
+            fetch(`https://mysterious-brook-87254.herokuapp.com/manage/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',

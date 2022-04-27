@@ -6,6 +6,7 @@ import auth from '../../../config.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useToken from '../../../CustomHooks/useToken';
 
 const Login = () => {
     const location = useLocation();
@@ -20,6 +21,12 @@ const Login = () => {
     const refEmail = useRef('');
     const refPassword = useRef('');
 
+    const [token] = useToken(user);
+    if (user && token) {
+        navigate(from, { replace: true });
+    }
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,23 +34,20 @@ const Login = () => {
         const password = refPassword.current.value;
         signInWithEmailAndPassword(email, password);
 
-        fetch('https://mysterious-brook-87254.herokuapp.com/login', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({ email })
-        })
-            .then(res => res.json())
-            .then(data => {
-                localStorage.setItem('accessToken', data.accessToken)
-            })
+        // fetch('https://mysterious-brook-87254.herokuapp.com/login', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify({ email })
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         localStorage.setItem('accessToken', data.accessToken)
+        //     })
     }
 
-    if (user) {
-        navigate(from, { replace: true });
-        // console.log(user);
-    }
+
 
     let errorMessage = '';
 

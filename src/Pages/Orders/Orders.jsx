@@ -13,7 +13,7 @@ const Orders = () => {
 
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`https://mysterious-brook-87254.herokuapp.com/orders?email=${user.email}`, {
+        fetch(`https://mysterious-brook-87254.herokuapp.com/orders?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }

@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../config.init'
 import SocialLogin from '../SocialLogin/SocialLogin';
-import { updateProfile } from 'firebase/auth';
+import useToken from '../../../CustomHooks/useToken';
+
 
 const Register = () => {
     const [agreeTerms, setAgreeTerms] = useState(false);
@@ -14,8 +15,9 @@ const Register = () => {
     const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
-    if (user) {
-        console.log(user)
+    const [token] = useToken(user);
+    if (user && token) {
+        navigate('/');
     }
 
     const handleRegisterSubmit = async (e) => {
@@ -23,11 +25,10 @@ const Register = () => {
         const email = e.target.email.value;
         const name = e.target.name.value;
         const password = e.target.password.value;
-
         await createUserWithEmailAndPassword(email, password);
         await updateProfile({ displayName: name })
         console.log('Updated Profile');
-        navigate('/');
+
     }
 
     return (

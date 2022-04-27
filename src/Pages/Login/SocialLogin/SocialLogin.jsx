@@ -5,6 +5,7 @@ import githubLogo from '../../../image/SocialLogos/icons8-github-144.png'
 import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import auth from '../../../config.init'
 import { useLocation, useNavigate } from 'react-router-dom';
+import useToken from '../../../CustomHooks/useToken';
 
 const SocialLogin = () => {
     const navigate = useNavigate();
@@ -24,7 +25,8 @@ const SocialLogin = () => {
         </div>
     }
 
-    if (user || gitUser) {
+    const [token] = useToken(user || gitUser);
+    if ((user || gitUser) && token) {
         navigate(from, { replace: true });
     }
 
